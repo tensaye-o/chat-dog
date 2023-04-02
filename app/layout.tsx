@@ -1,4 +1,4 @@
-import { Inter as FontSans } from 'next/font/google'
+import { Cantarell as FontSans } from 'next/font/google'
 
 import { cn } from '@/lib/utils'
 import '@/styles/globals.css'
@@ -18,6 +18,7 @@ export const metadata = {
 }
 
 const fontSans = FontSans({
+  weight: '400',
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
