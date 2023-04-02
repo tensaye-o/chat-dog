@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { useChat } from '@/hooks/use-chat'
 import { cn } from '@/lib/utils'
 
-export const Chat = () => {
+const Chat = () => {
   const { text, input, onInput, onEnter, isDisabled, onSubmit } = useChat()
 
   return (
@@ -62,3 +62,5 @@ export const Chat = () => {
     </main>
   )
 }
+
+export default Chat

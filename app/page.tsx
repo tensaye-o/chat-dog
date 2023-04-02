@@ -1,4 +1,4 @@
-import { Chat } from '@/pages/chat'
+import Chat from '@/pages/chat'
 
 export default function Home() {
   return <Chat />
