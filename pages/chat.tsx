@@ -76,7 +76,7 @@ const Chat = () => {
         <Dog size={24} />
         {'Chat Dog'}
       </div>
-      <div className="flex flex-col w-full h-full max-w-sm gap-4 overflow-scroll scroll-smooth">
+      <div className="flex flex-col w-full h-full max-w-sm gap-4 overflow-y-auto scroll-smooth">
         {text.map(({ role: r, content: c }, idx) => (
           <div
             key={c + idx}
