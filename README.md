@@ -14,6 +14,6 @@
 
 notes:
 
-- [x] found page without a React Component as default export in pages/chat (doc)[https://nextjs.org/docs/messages/page-without-valid-component]
+- [x] found page without a React Component as default export in pages/chat [doc](https://nextjs.org/docs/messages/page-without-valid-component)
 
 - [x] add context maintenance
