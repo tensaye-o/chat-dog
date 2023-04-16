@@ -4,6 +4,7 @@ import { useReducer, useEffect } from 'react'
 
 import { TextItem } from '@/types'
 import { randomize, sleep } from '@/lib/utils'
+import { db } from '@/store'
 
 const states = {
   idle: 'idle',
@@ -15,6 +16,7 @@ const states = {
 type State = keyof typeof states
 
 type ActionType =
+  | { type: 'idle'; payload: TextItem[] }
   | { type: 'typing'; payload: string }
   | { type: 'submitting'; payload: TextItem }
   | { type: 'loading' }
@@ -29,6 +31,13 @@ interface Context {
 
 const reducer = (state: Context, action: ActionType) => {
   switch (action.type) {
+    case 'idle': {
+      return {
+        ...state,
+        text: action.payload,
+        next: states['typing'],
+      }
+    }
     case 'typing': {
       return {
         ...state,
@@ -91,15 +100,33 @@ export const useChatFSM = () => {
 
   useEffect(() => {
     const auto_run = async () => {
+      const res = ((await db.read('context')) || []) as TextItem[]
+      on({ type: 'idle', payload: res })
+    }
+
+    auto_run()
+  }, [])
+
+  useEffect(() => {
+    const auto_run = async () => {
       if (next === 'loading') {
         on({ type: 'loading' })
+
+        db.create('context', [{ role: 'user', content: input }, ...text])
       }
 
       if (next === 'respond') {
         await sleep(2000)
+
+        const payload = {
+          role: 'bot',
+          content: 'ワン'.repeat(randomize()),
+        } as TextItem
+        db.create('context', [payload, ...text])
+
         on({
           type: 'respond',
-          payload: { role: 'bot', content: 'ワン'.repeat(randomize()) },
+          payload,
         })
       }
     }
